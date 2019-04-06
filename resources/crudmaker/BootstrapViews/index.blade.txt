@@ -1,0 +1,109 @@
+@extends('layouts.app')
+
+@section('titlePage') _ucCamel_casePlural_ @stop
+@section('descPage') Description @stop
+@section('icon') icon- @stop
+@section('sz-view')12 @stop
+
+@php
+    $pages = [['route' => '_sectionPrefix__lower_casePlural_.index', 'name' => '_ucCamel_casePlural_']]
+@endphp
+
+@section('content')
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="pull-right">
+                {!! Form::open(['route' => '_sectionPrefix__lower_casePlural_.search']) !!}
+                <input class="form-control form-inline pull-right col-md-11" name="search" placeholder="Procurar">
+                {!! Form::close() !!}
+            </div>
+            <a class="btn btn-primary pull-right" href="{!! route('_sectionPrefix__lower_casePlural_.create') !!}">Adicionar novo</a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            @if ($_lower_casePlural_->isEmpty())
+                <div class="well text-center">No _camel_casePlural_ found.</div>
+            @else
+                <div class="table-responsive table-card">
+                    <table class="table table-hover m-b-0">
+                        <thead>
+                            <th>Nome</th>
+                            <th class="text-right" width="200px">Ação</th>
+                        </thead>
+                        <tbody>
+                            @foreach($_lower_casePlural_ as $_lower_case_)
+                                <tr>
+                                    <td>
+                                        <a href="{!! route('_sectionPrefix__lower_casePlural_.edit', [$_lower_case_->id]) !!}">{{ $_lower_case_->nome }}</a>
+                                    </td>
+                                    <td class="text-right">
+                                        <button class="btn btn-link btn-sm pull-right" type="button" id="remove-_lower_case_-{{ $_lower_case_->id }}"><i class="feather icon-trash-2 f-w-600 f-16 text-c-red"></i></button>
+                                        <a class="btn btn-default btn-sm pull-right" href="{!! route('_sectionPrefix__lower_casePlural_.edit', [$_lower_case_->id]) !!}"><i class="icon feather icon-edit f-w-600 f-16 m-r-15 text-c-green"></i></a>
+                                    </td>
+                                </tr>
+                                @push('javascript')
+                                    <script>
+                                        $(document).ready(function () {
+                                            $(document).on('click', '#remove-_lower_case_-{{ $_lower_case_->id }}', function () {
+                                                swal({
+                                                        title: "Você tem certeza?",
+                                                        text: "Tem certeza de que deseja remover este conteúdo?",
+                                                        type: "warning",
+                                                        showCancelButton: true,
+                                                        confirmButtonClass: "btn-danger",
+                                                        confirmButtonText: "Sim, exclua!",
+                                                        cancelButtonText: "Não, cancele!",
+                                                        closeOnConfirm: false,
+                                                        closeOnCancel: false
+                                                    },
+                                                    function(isConfirm) {
+
+                                                        if (isConfirm) {
+                                                            $.ajax({
+                                                                url: '{!! route('_sectionPrefix__lower_casePlural_.destroy', [$_lower_case_->id]) !!}',
+                                                                type: 'POST',
+                                                                data: {
+                                                                    '_token': $('meta[name="csrf-token"]').attr('content'),
+                                                                    '_method': 'DELETE'
+                                                                },
+                                                                success: function( ) {
+                                                                    swal({
+                                                                        title: "_camel_case_ foi removido.",
+                                                                        type: "success"
+                                                                    }, function(is) {
+                                                                        window.location.reload();
+                                                                    });
+                                                                },
+                                                                error: function( data ) {
+                                                                    if ( data.status === 405 ) {
+                                                                        swal("Erro!", "_camel_case_ não foi removido.", "warning");
+                                                                    }
+                                                                }
+                                                            });
+                                                        } else {
+                                                            swal("Cancelado", "_camel_case_ ainda existe!", "error");
+                                                        }
+                                                    });
+                                            })
+
+                                        })
+                                    </script>
+                                @endpush
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            @endif
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 text-center">
+            {!! $_lower_casePlural_; !!}
+        </div>
+    </div>
+
+@stop

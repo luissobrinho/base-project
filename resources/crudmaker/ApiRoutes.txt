@@ -1,0 +1,7 @@
+
+/*
+|--------------------------------------------------------------------------
+| _camel_case_ API Routes
+|--------------------------------------------------------------------------
+*/
+Route::resource('_sectionRoutePrefix__lower_casePlural_', '_sectionNamespace__ucCamel_casePlural_Controller', ['only' => ['index', 'show']]);

@@ -1,0 +1,40 @@
+@extends('layouts.app')
+
+@section('titlePage') _ucCamel_casePlural_: Criar @stop
+@section('descPage') Description @stop
+@section('icon') icon- @stop
+@section('sz-view')8 @stop
+
+@php
+    $pages = [['route' => '_sectionPrefix__lower_casePlural_.index', 'name' => '_ucCamel_casePlural_'], ['route' => '_sectionPrefix__lower_casePlural_.create', 'name' => 'Criar']]
+@endphp
+
+@section('content')
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="pull-right">
+                {!! Form::open(['route' => '_sectionPrefix__lower_casePlural_.search']) !!}
+                <input class="form-control form-inline pull-right col-md-11" name="search" placeholder="Procurar">
+                {!! Form::close() !!}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+
+            {!! Form::open(['route' => '_sectionPrefix__lower_casePlural_.store']) !!}
+            <div class="form-row m-t-15">
+                @form_maker_array([
+                    _camel_case_ table data
+                ])
+            </div>
+
+            {!! Form::submit('Salvar', ['class' => 'btn btn-primary pull-right m-t-20']) !!}
+
+            {!! Form::close() !!}
+
+        </div>
+    </div>
+
+@stop

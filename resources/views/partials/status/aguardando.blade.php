@@ -1,0 +1,1 @@
+<div class="p-status bg-c-blue" data-toggle="tooltip" data-placement="left" data-original-title="Aguardando Aprovação"></div>

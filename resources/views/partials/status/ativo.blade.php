@@ -1,0 +1,1 @@
+<div class="p-status bg-c-green" data-toggle="tooltip" data-placement="left" data-original-title="Ativo"></div>
